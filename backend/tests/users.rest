@@ -1,0 +1,53 @@
+### GET all users
+GET http://localhost:3000/users
+Content-Type: application/json
+
+### GET user by ID
+GET http://localhost:3000/users/1
+Content-Type: application/json
+
+### POST new user
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "fullName": "Uj Felhasznalo",
+  "userName": "newuser",
+  "email": "ujEmail@gmail.com",
+  "password": "Jelszo123@",
+  "passwordAgain": "Jelszo123@"
+}
+
+### DELETE user by ID
+DELETE http://localhost:3000/users/3
+Content-Type: application/json
+
+
+### PUT update user by ID
+PUT http://localhost:3000/users/2
+Content-Type: application/json
+
+{
+    "fullName": "EMAIL UGYANAZ DE MODOSITVA",
+    "userName": "EMAIL",
+    "email": "hasznaltEmailDeUj@gmail.com"
+}
+
+### PUT password change for user by ID
+PUT http://localhost:3000/users/1/password
+Content-Type: application/json
+
+{
+    "oldPassword": "a",
+    "newPassword": "aab",
+    "newPasswordAgain": "aab"
+}
+
+### POST login
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+  "email": "hasznaltEmail@gmail.com",
+  "password": "a"
+}

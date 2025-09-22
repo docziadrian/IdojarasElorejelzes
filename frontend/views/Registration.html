@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Regisztráció</title>
+  </head>
+  <body>
+    <h5
+      class="position-absolute top-50 start-50 text-center translate-middle"
+      id="myAlert"
+    ></h5>
+    <h1 class="text-center">Regisztráció</h1>
+
+    <div class="mb-1">
+      <label for="registeringFullName" class="form-label">Teljes neved</label>
+      <input type="text" class="form-control" id="registeringFullName" />
+    </div>
+    <div class="mb-1">
+      <label for="registeringUsername" class="form-label"
+        >Felhasználó neved</label
+      >
+      <input type="text" class="form-control" id="registeringUsername" />
+    </div>
+    <div class="mb-1">
+      <label for="registeringEmail" class="form-label">Email címed</label>
+      <input type="email" class="form-control" id="registeringEmail" />
+    </div>
+    <div class="mb-3">
+      <label for="registeringPassword" class="form-label">Jelszó</label>
+      <input type="password" class="form-control" id="registeringPassword" />
+    </div>
+    <div class="mb-3">
+      <label for="registeringPasswordAgain" class="form-label"
+        >Jelszó újra</label
+      >
+      <input
+        type="password"
+        class="form-control"
+        id="registeringPasswordAgain"
+      />
+    </div>
+    <button
+      onclick="handleRegistration()"
+      id="registerButton"
+      type="button"
+      class="btn btn-primary"
+    >
+      Regisztráció
+    </button>
+  </body>
+</html>

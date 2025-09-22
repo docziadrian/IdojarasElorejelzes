@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "fullName": "EMAIL UGYANAZ DE MODOSITVA",
+    "userName": "EMAIL",
+    "email": "hasznaltEmail@gmail.com",
+    "password": "a"
+  },
+  {
+    "id": 2,
+    "fullName": "EMAIL UGYANAZ DE MODOSITVA",
+    "userName": "EMAIL",
+    "email": "hasznaltEmailDeUj@gmail.com",
+    "password": "Jelszo123@"
+  },
+  {
+    "id": 3,
+    "fullName": "gdxh",
+    "userName": "yggxy",
+    "email": "yxvxyv@gmail.com",
+    "password": "Jelszo123@"
+  },
+  {
+    "id": 4,
+    "fullName": "Mukodike",
+    "userName": "mukodj",
+    "email": "mukodik@gmail.com",
+    "password": "Jelszo123@"
+  },
+  {
+    "id": 5,
+    "fullName": "safasfsa",
+    "userName": "fafsafafsafs",
+    "email": "saffsafsasaf@eee.com",
+    "password": "Jelszo123@"
+  },
+  {
+    "id": 6,
+    "fullName": "blablab",
+    "userName": "agriififf",
+    "email": "asfsag@gmail.com",
+    "password": "Jelszo123@"
+  },
+  {
+    "id": 7,
+    "fullName": "123123",
+    "userName": "123213213312",
+    "email": "123213@gmail.com",
+    "password": "Jelszo123@"
+  },
+  {
+    "id": 8,
+    "fullName": "asfafasfafsfasafs",
+    "userName": "fsafasafsfsafas",
+    "email": "fassaffsafasafs@gmail.com",
+    "password": "Jelszo123@"
+  },
+  {
+    "id": 9,
+    "fullName": "mukoggy",
+    "userName": "lecci",
+    "email": "leva@gmail.com",
+    "password": "Jelszo123@"
+  }
+]

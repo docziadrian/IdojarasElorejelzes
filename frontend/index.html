@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="appTitle"></title>
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header id="appHeader">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Időjárás Előrejelzés</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navLinks"></ul>
+              <div>
+                <button id="lightmodeBtn">
+                  <i class="bi bi-sun-fill"></i>
+                </button>
+                <button id="darkmodeBtn">
+                  <i class="bi bi-moon-stars-fill"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <main id="appMain" class="container my-4"></main>
+      <footer id="appFooter" class="text-center py-3"></footer>
+    </div>
+
+    <!-- Bootstrap -->
+    <script defer src="./assets/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- App -->
+    <script defer src="./assets/js/app.js"></script>
+    <script defer src="./controllers/NavbarController.js"></script>
+    <script defer src="./controllers/UserController.js"></script>
+    <script defer src="./controllers/RegistrationController.js"></script>
+    <script defer src="./controllers/LoginController.js"></script>
+    <script defer src="./controllers/ToastHandler.js"></script>
+    <script defer src="./controllers/LandingController.js"></script>
+  </body>
+</html>
