@@ -1,33 +1,74 @@
-<!DOCTYPE html>
-<html lang="hu">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Login</title>
-  </head>
-  <body>
-    <h5
-      class="position-absolute top-50 start-50 text-center translate-middle"
-      id="myAlert"
-    ></h5>
-    <h1 class="text-center">Bejelentkezés</h1>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-success text-white text-center">
+          <h3 class="mb-0">
+            <i class="bi bi-box-arrow-in-right me-2"></i>
+            Bejelentkezés
+          </h3>
+        </div>
+        <div class="card-body p-4">
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="loginEmail" class="form-label">
+                <i class="bi bi-envelope me-1"></i>
+                Email cím
+              </label>
+              <input
+                type="email"
+                class="form-control"
+                id="loginEmail"
+                placeholder="pelda@email.com"
+                required
+              />
+            </div>
 
-    <div class="mb-1">
-      <label for="loginEmail" class="form-label">Email címed</label>
-      <input type="email" class="form-control" id="loginEmail" />
-    </div>
-    <div class="mb-3">
-      <label for="loginPassword" class="form-label">Jelszó</label>
-      <input type="password" class="form-control" id="loginPassword" />
-    </div>
+            <div class="mb-4">
+              <label for="loginPassword" class="form-label">
+                <i class="bi bi-lock me-1"></i>
+                Jelszó
+              </label>
+              <input
+                type="password"
+                class="form-control"
+                id="loginPassword"
+                placeholder="Adja meg jelszavát"
+                required
+              />
+            </div>
 
-    <button
-      onclick="handleLogin()"
-      id="handleLoginBtn"
-      type="button"
-      class="btn btn-primary"
-    >
-      Bejelentkezés
-    </button>
-  </body>
-</html>
+            <div class="d-grid">
+              <button
+                type="button"
+                class="btn btn-success btn-lg"
+                onclick="handleLogin()"
+                id="handleLoginBtn"
+              >
+                <i class="bi bi-box-arrow-in-right me-2"></i>
+                Bejelentkezés
+              </button>
+            </div>
+          </form>
+
+          <div class="text-center mt-3">
+            <p class="text-muted">
+              Nincs még fiókja?
+              <a
+                href="#"
+                onclick="render('Registration')"
+                class="text-decoration-none"
+              >
+                Regisztráljon itt
+              </a>
+            </p>
+          </div>
+          <h5
+            class="position-absolute top-50 start-50 text-center translate-middle"
+            id="myAlert"
+          ></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

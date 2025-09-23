@@ -1,93 +1,192 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div class="">
-      <div class="container d-flex justify-content-center align-items-center">
-        <div class="card w-50">
-          <div class="mt-5 text-center">
-            <h1 class="mb-0" id="currentFullName">fullName</h1>
-            <h4 class="mb-0" id="currentUserName">userName</h4>
-            <span class="text-muted d-block mb-2">email</span>
-
-            <button class="btn btn-primary btn-sm follow">Kijelentkezés</button>
-
-            <div
-              class="d-flex justify-content-center align-items-center mt-4 px-4"
-            >
-              <div class="stats text-center">
-                <h6 class="mb-0 text-center">id</h6>
-                <span>0</span>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">
+            <i class="bi bi-person-gear me-2"></i>
+            Profil adatok kezelése
+          </h3>
+        </div>
+        <div class="card-body p-4">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card border-0 bg-light">
+                <div class="card-body text-center">
+                  <div class="mb-3">
+                    <i
+                      class="bi bi-person-circle text-primary"
+                      style="font-size: 4rem"
+                    ></i>
+                  </div>
+                  <h4 class="card-title" id="currentFullName">Teljes név</h4>
+                  <h6
+                    class="card-subtitle mb-2 text-muted"
+                    id="currentUserName"
+                  >
+                    @felhasználónév
+                  </h6>
+                  <p class="card-text" id="currentEmail">email@example.com</p>
+                  <div class="badge bg-secondary mb-3">
+                    ID: <span id="currentId">0</span>
+                  </div>
+                  <div>
+                    <button
+                      class="btn btn-outline-danger btn-sm"
+                      onclick="logout()"
+                    >
+                      <i class="bi bi-box-arrow-right me-1"></i>
+                      Kijelentkezés
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <p class="pt-5">Profiladatok módosítása</p>
+            <div class="col-md-6">
+              <div class="card border-0">
+                <div class="card-header bg-info text-white">
+                  <h5 class="mb-0">
+                    <i class="bi bi-pencil-square me-2"></i>
+                    Adatok módosítása
+                  </h5>
+                </div>
+                <div class="card-body">
+                  <form id="profileUpdateForm">
+                    <div class="mb-3">
+                      <label for="updateFullName" class="form-label">
+                        <i class="bi bi-person me-1"></i>
+                        Teljes név
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="updateFullName"
+                        required
+                      />
+                    </div>
 
-            <div class="form">
-              <form>
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label"
-                    >Felhasználónév</label
-                  >
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                  />
+                    <div class="mb-3">
+                      <label for="updateUserName" class="form-label">
+                        <i class="bi bi-at me-1"></i>
+                        Felhasználónév
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="updateUserName"
+                        required
+                      />
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="updateEmail" class="form-label">
+                        <i class="bi bi-envelope me-1"></i>
+                        Email cím
+                      </label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="updateEmail"
+                        required
+                      />
+                    </div>
+
+                    <div class="d-grid">
+                      <button
+                        type="button"
+                        class="btn btn-info"
+                        onclick="handleProfileUpdate()"
+                      >
+                        <i class="bi bi-check-circle me-2"></i>
+                        Adatok frissítése
+                      </button>
+                    </div>
+                  </form>
                 </div>
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label"
-                    >Teljes név</label
-                  >
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                  />
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card border-0">
+                <div class="card-header bg-warning text-dark">
+                  <h5 class="mb-0">
+                    <i class="bi bi-key me-2"></i>
+                    Jelszó megváltoztatása
+                  </h5>
                 </div>
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label"
-                    >Email</label
-                  >
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                  />
+                <div class="card-body">
+                  <form id="passwordChangeForm">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label for="oldPassword" class="form-label">
+                            <i class="bi bi-lock me-1"></i>
+                            Jelenlegi jelszó
+                          </label>
+                          <input
+                            type="password"
+                            class="form-control"
+                            id="oldPassword"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label for="newPassword" class="form-label">
+                            <i class="bi bi-lock-fill me-1"></i>
+                            Új jelszó
+                          </label>
+                          <input
+                            type="password"
+                            class="form-control"
+                            id="newPassword"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label for="newPasswordAgain" class="form-label">
+                            <i class="bi bi-lock-fill me-1"></i>
+                            Új jelszó újra
+                          </label>
+                          <input
+                            type="password"
+                            class="form-control"
+                            id="newPasswordAgain"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="d-grid">
+                      <button
+                        type="button"
+                        class="btn btn-warning"
+                        onclick="handlePasswordChange()"
+                      >
+                        <i class="bi bi-key me-2"></i>
+                        Jelszó megváltoztatása
+                      </button>
+                    </div>
+                  </form>
                 </div>
-                <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label"
-                    >Password</label
-                  >
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="exampleInputPassword1"
-                  />
-                </div>
-                <div class="mb-3 form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="exampleCheck1"
-                  />
-                  <label class="form-check-label" for="exampleCheck1"
-                    >Check me out</label
-                  >
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </body>
-</html>
+  </div>
+</div>
+<h5
+  class="position-absolute top-50 start-50 text-center translate-middle"
+  id="myAlert"
+></h5>

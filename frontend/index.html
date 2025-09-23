@@ -3,16 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title id="appTitle"></title>
+    <title id="appTitle">Időjárás Előrejelzés</title>
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
   </head>
   <body>
     <div id="app">
       <header id="appHeader">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#">Időjárás Előrejelzés</a>
+            <a
+              class="navbar-brand fw-bold"
+              href="#"
+              onclick="render('landing')"
+            >
+              <i class="bi bi-cloud-sun me-2"></i>
+              Időjárás Előrejelzés
+            </a>
             <button
               class="navbar-toggler"
               type="button"
@@ -26,11 +37,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navLinks"></ul>
-              <div>
-                <button id="lightmodeBtn">
+              <div class="d-flex gap-2">
+                <button id="lightmodeBtn" class="btn btn-outline-light btn-sm">
                   <i class="bi bi-sun-fill"></i>
                 </button>
-                <button id="darkmodeBtn">
+                <button id="darkmodeBtn" class="btn btn-outline-light btn-sm">
                   <i class="bi bi-moon-stars-fill"></i>
                 </button>
               </div>
@@ -38,40 +49,46 @@
           </div>
         </nav>
       </header>
-      <main id="appMain" class="container my-4"></main>
-      <footer id="appFooter" class="text-center py-3">
-        <h3 class="text-center font-monospace" id="Fauthor"></h3>
-        <h4 class="text-center font-monospace" id="Fcompany"></h4>
-        <h5 class="text-center font-monospace" id="Fdate"></h5>
+
+      <main id="appMain" class="container-fluid py-4"></main>
+
+      <footer id="appFooter" class="bg-light text-center py-4 mt-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <h5 class="text-primary mb-3" id="Fauthor">Dóczi Adrián Márk</h5>
+            </div>
+            <div class="col-md-4">
+              <h6 class="text-muted mb-2" id="Fcompany">
+                Időjárás Előrejelzés Alkalmazás
+              </h6>
+            </div>
+            <div class="col-md-4">
+              <small class="text-muted" id="Fdate"
+                >© 2025 Minden jog fenntartva</small
+              >
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
 
-    <!-- Bootstrap -->
     <script defer src="./assets/js/bootstrap.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
-    />
-
-    <!-- Axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- App -->
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.19/index.global.min.js"></script>
+
     <script defer src="./assets/js/app.js"></script>
     <script defer src="./controllers/NavbarController.js"></script>
     <script defer src="./controllers/UserController.js"></script>
     <script defer src="./controllers/RegistrationController.js"></script>
-    <script defer src="./controllers/LoginController.js"></script>
     <script defer src="./controllers/ToastHandler.js"></script>
     <script defer src="./controllers/Felvetel.js"></script>
     <script defer src="./controllers/LekeresController.js"></script>
     <script defer src="./controllers/LandingController.js"></script>
+    <script defer src="./controllers/LoginController.js"></script>
     <script defer src="./controllers/ProfileUpdateController.js"></script>
-
-    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-    <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/index.global.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.19/index.global.min.js"></script>
   </body>
 </html>

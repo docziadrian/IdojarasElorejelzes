@@ -1,53 +1,198 @@
-### GET all users
+### GET 1. Összes felhasználó lekérése
 GET http://localhost:3000/users
 Content-Type: application/json
 
-### GET user by ID
+### 2. Egy adott felhasználó lekérése ID alapján
 GET http://localhost:3000/users/1
 Content-Type: application/json
 
-### POST new user
+### 3. Nem létező felhasználó lekérése
+GET http://localhost:3000/users/999
+Content-Type: application/json
+
+### 4. Érvénytelen ID-val történő lekérés
+GET http://localhost:3000/users/abc
+Content-Type: application/json
+
+### 5. Új felhasználó létrehozása - sikeres
 POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "fullName": "Uj Felhasznalo",
-  "userName": "newuser",
-  "email": "ujEmail@gmail.com",
-  "password": "Jelszo123@",
-  "passwordAgain": "Jelszo123@"
+  "fullName": "Teszt Felhasználó",
+  "userName": "tesztuser",
+  "email": "teszt@example.com",
+  "password": "Teszt123!",
+  "passwordAgain": "Teszt123!"
 }
 
-### DELETE user by ID
-DELETE http://localhost:3000/users/3
-Content-Type: application/json
-
-
-### PUT update user by ID
-PUT http://localhost:3000/users/2
+### 6. Új felhasználó létrehozása - hibás jelszó
+POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "fullName": "EMAIL UGYANAZ DE MODOSITVA",
-    "userName": "EMAIL",
-    "email": "hasznaltEmailDeUj@gmail.com"
+  "fullName": "Teszt Felhasználó 2",
+  "userName": "tesztuser2",
+  "email": "teszt2@example.com",
+  "password": "123",
+  "passwordAgain": "123"
 }
 
-### PUT password change for user by ID
-PUT http://localhost:3000/users/1/password
+### 7. Új felhasználó létrehozása - hiányzó mezők
+POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "oldPassword": "a",
-    "newPassword": "aab",
-    "newPasswordAgain": "aab"
+  "fullName": "Teszt Felhasználó 3",
+  "userName": "tesztuser3"
 }
 
-### POST login
+### 8. Új felhasználó létrehozása - nem egyező jelszavak
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "fullName": "Teszt Felhasználó 4",
+  "userName": "tesztuser4",
+  "email": "teszt4@example.com",
+  "password": "Teszt123!",
+  "passwordAgain": "Teszt456!"
+}
+
+### 9. Új felhasználó létrehozása - már létező email
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "fullName": "Teszt Felhasználó 5",
+  "userName": "tesztuser5",
+  "email": "teszt@example.com",
+  "password": "Teszt123!",
+  "passwordAgain": "Teszt123!"
+}
+
+### 10. Bejelentkezés - sikeres
 POST http://localhost:3000/users/login
 Content-Type: application/json
 
 {
-  "email": "hasznaltEmail@gmail.com",
-  "password": "a"
+  "email": "teszt@example.com",
+  "password": "Teszt123!"
 }
+
+### 11. Bejelentkezés - hibás jelszó
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+  "email": "teszt@example.com",
+  "password": "HibasJelszo"
+}
+
+### 12. Bejelentkezés - nem létező felhasználó
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+  "email": "nemletezo@example.com",
+  "password": "Teszt123!"
+}
+
+### 13. Bejelentkezés - hiányzó adatok
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+  "email": "teszt@example.com"
+}
+
+### 14. Felhasználó frissítése - sikeres
+PUT http://localhost:3000/users/1
+Content-Type: application/json
+
+{
+  "fullName": "Frissített Név",
+  "userName": "frissitettuser"
+}
+
+### 15. Felhasználó frissítése - nem létező felhasználó
+PUT http://localhost:3000/users/999
+Content-Type: application/json
+
+{
+  "fullName": "Frissített Név",
+  "userName": "frissitettuser"
+}
+
+### 16. Felhasználó frissítése - érvénytelen ID
+PUT http://localhost:3000/users/abc
+Content-Type: application/json
+
+{
+  "fullName": "Frissített Név",
+  "userName": "frissitettuser"
+}
+
+### 17. Felhasználó frissítése - már létező email
+PUT http://localhost:3000/users/1
+Content-Type: application/json
+
+{
+  "email": "teszt@example.com"
+}
+
+### 18. Jelszó frissítése - sikeres
+PUT http://localhost:3000/users/1/password
+Content-Type: application/json
+
+{
+  "oldPassword": "Teszt123!",
+  "newPassword": "UjJelszo123!",
+  "newPasswordAgain": "UjJelszo123!"
+}
+
+### 19. Jelszó frissítése - hibás régi jelszó
+PUT http://localhost:3000/users/1/password
+Content-Type: application/json
+
+{
+  "oldPassword": "HibasJelszo",
+  "newPassword": "UjJelszo123!",
+  "newPasswordAgain": "UjJelszo123!"
+}
+
+### 20. Jelszó frissítése - nem egyező új jelszavak
+PUT http://localhost:3000/users/1/password
+Content-Type: application/json
+
+{
+  "oldPassword": "UjJelszo123!",
+  "newPassword": "UjJelszo123!",
+  "newPasswordAgain": "MasJelszo123!"
+}
+
+### 21. Jelszó frissítése - nem létező felhasználó
+PUT http://localhost:3000/users/999/password
+Content-Type: application/json
+
+{
+  "oldPassword": "Teszt123!",
+  "newPassword": "UjJelszo123!",
+  "newPasswordAgain": "UjJelszo123!"
+}
+
+### 22. Felhasználó törlése - sikeres
+DELETE http://localhost:3000/users/1
+Content-Type: application/json
+
+### 23. Felhasználó törlése - nem létező felhasználó
+DELETE http://localhost:3000/users/999
+Content-Type: application/json
+
+### 24. Felhasználó törlése - érvénytelen ID
+DELETE http://localhost:3000/users/abc
+Content-Type: application/json
+
+### 25. Összes felhasználó törlése
+DELETE http://localhost:3000/users
+Content-Type: application/json

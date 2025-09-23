@@ -1,35 +1,41 @@
 const isUserLoggedIn = () => {
-  if (!localStorage.getItem("email")) {
-    return false;
-  }
-
-  return true;
+  return !!localStorage.getItem("userData");
 };
 
-const saveUser = (data) => {
-  const { fullName, userName, email } = data;
-  localStorage.setItem("fullName", fullName);
-  localStorage.setItem("userName", userName);
-  localStorage.setItem("email", email);
+const saveUser = (userData) => {
+  localStorage.setItem("userData", JSON.stringify(userData));
 };
 
 const loadUser = () => {
-  if (!localStorage.getItem("email")) {
-    return null;
-  }
-  const user = {
-    fullName: localStorage.getItem("fullName"),
-    userName: localStorage.getItem("userName"),
-    email: localStorage.getItem("email"),
-  };
-
-  return user;
+  const userData = localStorage.getItem("userData");
+  return userData ? JSON.parse(userData) : null;
 };
 
-const logout = () => {
-  localStorage.removeItem("fullName");
-  localStorage.removeItem("userName");
-  localStorage.removeItem("email");
+window.logout = () => {
+  localStorage.removeItem("userData");
+  window.location.reload();
+};
 
-  document.location.reload();
+const updateUserProfile = async (userId, userData) => {
+  try {
+    const response = await axios.put(
+      `${API_BASE_URL}/users/${userId}`,
+      userData
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const changeUserPassword = async (userId, passwordData) => {
+  try {
+    const response = await axios.put(
+      `${API_BASE_URL}/users/${userId}/password`,
+      passwordData
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };

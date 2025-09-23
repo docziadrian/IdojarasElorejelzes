@@ -7,29 +7,29 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log(loggedIn);
 
   const notLoggedInMenu = `
-    <li onclick="render('landing')" class="nav-item">
+    <li onclick="render('Landing')" class="nav-item">
       <a class="nav-link" aria-current="page">Főoldal</a>
     </li>
-    <li onclick="render('registration')" class="nav-item">
+    <li onclick="render('Registration')" class="nav-item">
       <a class="nav-link">Regisztráció</a>
     </li>
-    <li onclick="render('login')" class="nav-item">
+    <li onclick="render('Login')" class="nav-item">
       <a class="nav-link">Bejelentkezés</a>
     </li>`;
 
   const loggedInMenu = `
-    <li onclick="render('landing')" class="nav-item">
+    <li onclick="render('Landing')" class="nav-item">
       <a class="nav-link" aria-current="page">Főoldal</a>
     </li>
-     <li onclick="render('felvetel')" class="nav-item">
+     <li onclick="render('Felvetel')" class="nav-item">
       <a class="nav-link" aria-current="page">Felvétel</a>
     </li>
     </li>
-     <li onclick="render('lekeres')" class="nav-item">
+     <li onclick="render('Lekeres')" class="nav-item">
       <a class="nav-link" aria-current="page">Lekérés</a>
     </li>
     </li>
-     <li onclick="render('profilAdatok')" class="nav-item">
+     <li onclick="render('ProfilAdatok')" class="nav-item">
       <a class="nav-link" aria-current="page">Profil adatok</a>
     </li>
     <li onclick="logout()" class="nav-item">
@@ -43,24 +43,29 @@ document.addEventListener("DOMContentLoaded", () => {
     navbarMenu.innerHTML = loggedInMenu;
   }
 
-  render("landing");
+  render("Landing");
 });
 
 let render = async (view) => {
   mainSection.innerHTML = await (await fetch(`views/${view}.html`)).text();
 
   switch (view) {
-    case "landing":
+    case "Landing":
+      renderLanding && renderLanding();
       break;
-    case "felvetel":
-      handleDate();
+    case "Felvetel":
+      handleDateFelvetel();
       handleChange();
       break;
-    case "lekeres":
+    case "Lekeres":
       await getWeathers();
       break;
-    case "profilAdatok":
+    case "ProfilAdatok":
       await getProfileHandler();
+      break;
+    case "Registration":
+      break;
+    case "Login":
       break;
   }
 };

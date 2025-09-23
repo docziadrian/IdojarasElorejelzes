@@ -1,47 +1,56 @@
 [
   {
-    "id": 1,
+    "id": 2,
+    "sendTitle": "Esős idő lesz",
+    "sendDescription": "Csepegni fog a víz",
+    "sendImgPath": "https://cdn-icons-png.flaticon.com/512/3351/3351979.png",
+    "sendDate": "2025-09-25",
+    "sendMin": 2,
+    "sendMax": 5
+  },
+  {
+    "id": 5,
+    "sendTitle": "Felhős idő lesz",
+    "sendDescription": "Felhőzni fog az ég",
+    "sendImgPath": "https://cdn-icons-png.flaticon.com/512/414/414927.png",
+    "sendDate": "2025-09-27",
+    "sendMin": 2,
+    "sendMax": 5
+  },
+  {
+    "id": 6,
+    "sendTitle": "Esős idő lesz",
+    "sendDescription": "Csepegni fog a víz",
+    "sendImgPath": "https://cdn-icons-png.flaticon.com/512/3351/3351979.png",
+    "sendDate": "2025-10-03",
+    "sendMin": 0,
+    "sendMax": 30
+  },
+  {
+    "id": 7,
+    "sendTitle": "Napos idő lesz",
+    "sendDescription": "Fényes napra virradunk",
+    "sendImgPath": "https://cdn-icons-png.flaticon.com/512/4814/4814268.png",
+    "sendDate": "2025-10-04",
+    "sendMin": 0,
+    "sendMax": 30
+  },
+  {
+    "id": 8,
+    "sendTitle": "Havazni fog",
+    "sendDescription": "Havazni fog",
+    "sendImgPath": "https://cdn-icons-png.flaticon.com/512/2315/2315309.png",
+    "sendDate": "2025-10-05",
+    "sendMin": 5,
+    "sendMax": 40
+  },
+  {
+    "id": 9,
     "sendTitle": "Napos idő lesz",
     "sendDescription": "Fényes napra virradunk",
     "sendImgPath": "https://cdn-icons-png.flaticon.com/512/4814/4814268.png",
     "sendDate": "2025-09-23",
-    "sendMin": "0",
-    "sendMax": "5"
-  },
-  {
-    "id": 2,
-    "sendTitle": "Felhős idő lesz",
-    "sendDescription": "Felhőzni fog az ég.",
-    "sendImgPath": "https://cdn-icons-png.flaticon.com/512/414/414927.png",
-    "sendDate": "2025-09-23",
-    "sendMin": "5",
-    "sendMax": "6"
-  },
-  {
-    "id": 3,
-    "sendTitle": "Esős idő lesz",
-    "sendDescription": "Csepegni fog a víz.",
-    "sendImgPath": "https://cdn-icons-png.flaticon.com/512/3351/3351979.png",
-    "sendDate": "2025-09-23",
-    "sendMin": "5",
-    "sendMax": "6"
-  },
-  {
-    "id": 4,
-    "sendTitle": "Nagyon esős idő lesz",
-    "sendDescription": "Mindenképp vigyél esernyőt",
-    "sendImgPath": "https://cdn-icons-png.flaticon.com/512/4834/4834677.png",
-    "sendDate": "2025-09-23",
-    "sendMin": "6",
-    "sendMax": "7"
-  },
-  {
-    "id": 5,
-    "sendTitle": "Havazni fog",
-    "sendDescription": "Havazni fog.",
-    "sendImgPath": "https://cdn-icons-png.flaticon.com/512/2315/2315309.png",
-    "sendDate": "2025-09-23",
-    "sendMin": "5",
-    "sendMax": "6"
+    "sendMin": 2,
+    "sendMax": 5
   }
 ]

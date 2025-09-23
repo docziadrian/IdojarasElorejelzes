@@ -1,217 +1,309 @@
-const storedDatas = [];
+var PreweatherData = [];
 
-const addDataToSection = (
-  title,
-  description,
-  date,
-  imgPath,
-  minHom,
-  maxHom
-) => {
-  const dataSection = document.querySelector("#dataSection");
-  dataSection.innerHTML += `<div class="col mx-auto w-full align-self-center">
-          <h5>${date}</h5>
-          <div class="card" style="width: 18rem">
-            <img src=${imgPath} class="card-img-top" alt="Időjárás fotográfia" />
-            <div class="card-body">
-              <h5 class="card-title">${title}</h5>
-              <p class="card-text">
-                ${description}
-              </p>
-              
+const createWeatherCard = (weather) => {
+  return `
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <img src="${weather.sendImgPath}" class="card-img-top" alt="Időjárás ikon" style="height: 200px; object-fit: contain;">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">${weather.sendTitle}</h5>
+          <p class="card-text flex-grow-1">${weather.sendDescription}</p>
+          <div class="mt-auto">
+            <div class="row text-center">
+              <div class="col-6">
+                <small class="text-muted">Minimum</small>
+                <div class="fw-bold text-primary">${weather.sendMin}°C</div>
+              </div>
+              <div class="col-6">
+                <small class="text-muted">Maximum</small>
+                <div class="fw-bold text-danger">${weather.sendMax}°C</div>
+              </div>
+            </div>
+            <hr>
+        <div class="d-flex justify-content-between align-items-center">
+              <small class="text-muted">${weather.sendDate}</small>
+          <div class="btn-group">
+            <button class="btn btn-outline-secondary btn-sm" onclick="openEditWeather(${weather.id})" title="Szerkesztés">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button class="btn btn-outline-danger btn-sm" onclick="deleteWeather(${weather.id})" title="Törlés">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
             </div>
           </div>
-        </div>`;
+        </div>
+      </div>
+    </div>
+  `;
+};
+
+window.addDataToSection = (weather) => {
+  const dataSection = document.querySelector("#dataSection");
+  if (dataSection) {
+    dataSection.innerHTML += createWeatherCard(weather);
+  }
 };
 
 const getWeathers = async () => {
-  const { response } = await axios
-    .get("http://localhost:3000/weathers")
-    .then((res) => {
-      const array = res.data;
-      for (const weather of array) {
-        addDataToSection(
-          weather.sendTitle,
-          weather.sendDescription,
-          weather.sendDate,
-          weather.sendImgPath,
-          weather.sendMin,
-          weather.sendMax
-        );
-        storedDatas.push(weather);
-      }
+  try {
+    const response = await axios.get(`${API_BASE_URL}/weathers`);
+    weatherData = response.data;
+
+    const dataSection = document.querySelector("#dataSection");
+    dataSection.innerHTML = "";
+
+    weatherData.forEach((weather) => {
+      addDataToSection(weather);
     });
-};
-
-const handleViewChange = (view) => {
-  if (view === "data") {
-    document.querySelector("#dataSection").classList.remove("visually-hidden");
-    document.querySelector("#linearSection").classList.add("visually-hidden");
-    document.querySelector("#calendarSection").classList.add("visually-hidden");
-  }
-
-  if (view === "linear") {
-    document.querySelector("#dataSection").classList.add("visually-hidden");
-    document.querySelector("#calendarSection").classList.add("visually-hidden");
-    document
-      .querySelector("#linearSection")
-      .classList.remove("visually-hidden");
-    linearView();
-  }
-
-  if (view === "calendar") {
-    document.querySelector("#dataSection").classList.add("visually-hidden");
-    document.querySelector("#linearSection").classList.add("visually-hidden");
-    document
-      .querySelector("#calendarSection")
-      .classList.remove("visually-hidden");
-    calendarView();
+  } catch (error) {
+    showToastMessage("error", "Hiba történt az időjárás adatok lekérésekor");
   }
 };
 
-const calendarView = () => {
-  var calendarEl = document.getElementById("calendar");
-  var calendar = new FullCalendar.Calendar(calendarEl, {
+window.getWeathers = async () => {
+  await getWeathers();
+};
+
+let editingWeatherId = null;
+
+window.openEditWeather = (id) => {
+  const item = weatherData.find((w) => w.id === id);
+  if (!item) return;
+  editingWeatherId = id;
+  document.getElementById("editTitle").value = item.sendTitle || "";
+  document.getElementById("editDescription").value = item.sendDescription || "";
+  document.getElementById("editDate").value = item.sendDate || "";
+  document.getElementById("editImgPath").value = item.sendImgPath || "";
+  document.getElementById("editMin").value = item.sendMin;
+  document.getElementById("editMax").value = item.sendMax;
+  const modal = new bootstrap.Modal(
+    document.getElementById("editWeatherModal")
+  );
+  modal.show();
+};
+
+window.saveEditWeather = async () => {
+  if (!editingWeatherId) return;
+  const payload = {
+    sendTitle: document.getElementById("editTitle").value.trim(),
+    sendDescription: document.getElementById("editDescription").value.trim(),
+    sendDate: document.getElementById("editDate").value,
+    sendImgPath: document.getElementById("editImgPath").value.trim(),
+    sendMin: document.getElementById("editMin").value,
+    sendMax: document.getElementById("editMax").value,
+  };
+  try {
+    const res = await axios.put(
+      `${API_BASE_URL}/weathers/${editingWeatherId}`,
+      payload
+    );
+    showToastMessage("success", "Időjárás adat frissítve");
+    if (res.data?.warning) {
+      showToastMessage("warning", res.data.warning);
+    }
+    const modalEl = document.getElementById("editWeatherModal");
+    const modal = bootstrap.Modal.getInstance(modalEl);
+    modal && modal.hide();
+    editingWeatherId = null;
+    await getWeathers();
+  } catch (error) {
+    const msg = error.response?.data?.error || "Hiba történt a frissítés során";
+    showToastMessage("error", msg);
+  }
+};
+
+document.addEventListener("change", async (e) => {
+  if (e.target && e.target.id === "selectedDate") {
+    await applyFilters();
+  }
+});
+
+const applyFilters = async () => {
+  const date = document.getElementById("selectedDate").value;
+  if (!weatherData.length) {
+    await getWeathers();
+  }
+  let filtered = [...weatherData];
+  if (date) {
+    filtered = filtered.filter((w) => w.sendDate === date);
+  }
+  const dataSection = document.querySelector("#dataSection");
+  if (dataSection) {
+    dataSection.innerHTML = "";
+  }
+
+  filtered.forEach((w) => addDataToSection(w));
+};
+
+window.deleteWeather = async (weatherId) => {
+  if (!confirm("Biztosan törölni szeretnéd ezt az időjárás adatot?")) {
+    return;
+  }
+
+  try {
+    await axios.delete(`${API_BASE_URL}/weathers/${weatherId}`);
+    showToastMessage("success", "Időjárás adat sikeresen törölve!");
+    getWeathers();
+  } catch (error) {
+    const errorMessage =
+      error.response?.data?.error || "Hiba történt a törlés során";
+    showToastMessage("error", errorMessage);
+  }
+};
+
+window.handleViewChange = (view) => {
+  const dataSection = document.querySelector("#dataSection");
+  const linearSection = document.querySelector("#linearSection");
+  const calendarSection = document.querySelector("#calendarSection");
+
+  const dataViewBtn = document.querySelector("#dataViewBtn");
+  const linearViewBtn = document.querySelector("#linearViewBtn");
+  const calendarViewBtn = document.querySelector("#calendarViewBtn");
+
+  dataSection.classList.add("visually-hidden");
+  linearSection.classList.add("visually-hidden");
+  calendarSection.classList.add("visually-hidden");
+
+  dataViewBtn.classList.remove("active");
+  linearViewBtn.classList.remove("active");
+  calendarViewBtn.classList.remove("active");
+
+  switch (view) {
+    case "data":
+      dataSection.classList.remove("visually-hidden");
+      dataViewBtn.classList.add("active");
+      break;
+    case "linear":
+      linearSection.classList.remove("visually-hidden");
+      linearViewBtn.classList.add("active");
+      linearView();
+      break;
+    case "calendar":
+      calendarSection.classList.remove("visually-hidden");
+      calendarViewBtn.classList.add("active");
+      calendarView();
+      break;
+  }
+};
+
+window.calendarView = () => {
+  const calendarEl = document.getElementById("calendar");
+  const calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: "dayGridMonth",
+    locale: "hu",
+    headerToolbar: {
+      left: "prev,next today",
+      center: "title",
+      right: "dayGridMonth,dayGridWeek",
+    },
   });
-  for (const element of storedDatas) {
+
+  weatherData.forEach((weather) => {
     calendar.addEvent({
-      title: element.sendTitle,
-      start: element.sendDate,
-      end: element.sendDate,
+      title: weather.sendTitle,
+      start: weather.sendDate,
+      end: weather.sendDate,
+      backgroundColor: getWeatherColor(weather.sendTitle),
+      borderColor: getWeatherColor(weather.sendTitle),
     });
-  }
+  });
 
   calendar.render();
 };
 
-const linearView = () => {
-  const convertToDataPoints = [];
+window.getWeatherColor = (title) => {
+  const colors = {
+    "Napos idő lesz": "#ffc107",
+    "Felhős idő lesz": "#6c757d",
+    "Esős idő lesz": "#0d6efd",
+    "Nagyon esős idő lesz": "#0d6efd",
+    "Havazni fog": "#ffffff",
+  };
+  return colors[title] || "#6c757d";
+};
 
-  for (const element of storedDatas) {
-    const label = element.sendDate;
-    const y = [Number(element.sendMin), Number(element.sendMax)];
-    const name = element.sendTitle;
+window.linearView = () => {
+  const dataPoints = weatherData.map((weather) => ({
+    label: weather.sendDate,
+    y: [Number(weather.sendMin), Number(weather.sendMax)],
+    name: weather.sendTitle,
+  }));
 
-    convertToDataPoints.push({ label: label, y: y, name: name });
-  }
-
-  var chart = new CanvasJS.Chart("chartContainer", {
+  const chart = new CanvasJS.Chart("chartContainer", {
     title: {
-      text: "Heti időjárásjelentés",
+      text: "Időjárásjelentés",
+      fontFamily: "Arial",
     },
     axisY: {
       suffix: " °C",
       maximum: 40,
-      gridThickness: 0,
+      minimum: -10,
+      gridThickness: 1,
+      gridColor: "#e0e0e0",
+    },
+    axisX: {
+      title: "Dátum",
+      titleFontSize: 14,
     },
     toolTip: {
       shared: true,
       content:
-        "{name} </br> <strong>Temperature: </strong> </br> Min: {y[0]} °C, Max: {y[1]} °C",
+        "{name} <br/> <strong>Hőmérséklet:</strong> <br/> Min: {y[0]} °C, Max: {y[1]} °C",
     },
     data: [
       {
         type: "rangeSplineArea",
-        fillOpacity: 0.1,
-        color: "#91AAB1",
+        fillOpacity: 0.3,
+        color: "#0d6efd",
         indexLabelFormatter: formatter,
-        dataPoints: convertToDataPoints,
+        dataPoints: dataPoints,
       },
     ],
   });
+
   chart.render();
+  addWeatherIcons(chart);
+};
 
-  var images = [];
+window.addWeatherIcons = (chart) => {
+  const images = [];
 
-  addImages(chart);
+  chart.data[0].dataPoints.forEach((dataPoint, index) => {
+    const weather = weatherData.find((w) => w.sendDate === dataPoint.label);
+    if (weather) {
+      const img = $("<img>")
+        .attr("src", weather.sendImgPath)
+        .attr("class", `weather-icon-${index}`)
+        .css({
+          width: "30px",
+          height: "30px",
+          position: "absolute",
+        });
 
-  function addImages(chart) {
-    for (var i = 0; i < chart.data[0].dataPoints.length; i++) {
-      var dpsName = chart.data[0].dataPoints[i].name;
-      if (dpsName == "Napos idő lesz") {
-        images.push(
-          $("<img>").attr(
-            "src",
-            "https://cdn-icons-png.flaticon.com/512/4814/4814268.png"
-          )
-        );
-      } else if (dpsName == "Felhős idő lesz") {
-        images.push(
-          $("<img>").attr(
-            "src",
-            "https://cdn-icons-png.flaticon.com/512/414/414927.png"
-          )
-        );
-      } else if (dpsName == "Esős idő lesz") {
-        images.push(
-          $("<img>").attr(
-            "src",
-            "https://cdn-icons-png.flaticon.com/512/3351/3351979.png"
-          )
-        );
-      } else if (dpsName == "Nagyon esős idő lesz") {
-        images.push(
-          $("<img>").attr(
-            "src",
-            "https://cdn-icons-png.flaticon.com/512/4834/4834677.png"
-          )
-        );
-      } else if (dpsName == "Havazni fog") {
-        images.push(
-          $("<img>").attr(
-            "src",
-            "https://cdn-icons-png.flaticon.com/512/2315/2315309.png"
-          )
-        );
-      }
-
-      images[i]
-        .attr("class", dpsName)
-        .appendTo($("#chartContainer>.canvasjs-chart-container"));
-      positionImage(images[i], i);
-    }
-  }
-
-  function positionImage(image, index) {
-    var imageCenter = chart.axisX[0].convertValueToPixel(
-      chart.data[0].dataPoints[index].x
-    );
-    var imageTop = chart.axisY[0].convertValueToPixel(chart.axisY[0].maximum);
-
-    image.width("40px").css({
-      left: imageCenter - 20 + "px",
-      position: "absolute",
-      top: imageTop + "px",
-      position: "absolute",
-    });
-  }
-
-  $(window).resize(function () {
-    var cloudyCounter = 0,
-      rainyCounter = 0,
-      sunnyCounter = 0;
-    var imageCenter = 0;
-    for (var i = 0; i < chart.data[0].dataPoints.length; i++) {
-      imageCenter =
-        chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[i].x) - 20;
-      if (chart.data[0].dataPoints[i].name == "cloudy") {
-        $(".cloudy").eq(cloudyCounter++).css({ left: imageCenter });
-      } else if (chart.data[0].dataPoints[i].name == "rainy") {
-        $(".rainy").eq(rainyCounter++).css({ left: imageCenter });
-      } else if (chart.data[0].dataPoints[i].name == "sunny") {
-        $(".sunny").eq(sunnyCounter++).css({ left: imageCenter });
-      }
+      img.appendTo($("#chartContainer>.canvasjs-chart-container"));
+      positionWeatherIcon(img, chart, index);
     }
   });
+};
 
-  function formatter(e) {
-    if (e.index === 0 && e.dataPoint.x === 0) {
-      return " Min " + e.dataPoint.y[e.index] + "°";
-    } else if (e.index == 1 && e.dataPoint.x === 0) {
-      return " Max " + e.dataPoint.y[e.index] + "°";
-    } else {
-      return e.dataPoint.y[e.index] + "°";
-    }
+window.positionWeatherIcon = (image, chart, index) => {
+  const imageCenter = chart.axisX[0].convertValueToPixel(
+    chart.data[0].dataPoints[index].x
+  );
+  const imageTop = chart.axisY[0].convertValueToPixel(chart.axisY[0].maximum);
+
+  image.css({
+    left: imageCenter - 15 + "px",
+    top: imageTop + 10 + "px",
+  });
+};
+
+window.formatter = (e) => {
+  if (e.index === 0) {
+    return "Min " + e.dataPoint.y[e.index] + "°";
+  } else if (e.index === 1) {
+    return "Max " + e.dataPoint.y[e.index] + "°";
   }
+  return e.dataPoint.y[e.index] + "°";
 };

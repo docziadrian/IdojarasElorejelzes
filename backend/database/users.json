@@ -2,9 +2,9 @@
   {
     "id": 1,
     "fullName": "EMAIL UGYANAZ DE MODOSITVA",
-    "userName": "EMAIL",
-    "email": "hasznaltEmail@gmail.com",
-    "password": "a"
+    "userName": "e2222",
+    "email": "hasznaltEmailDeUj2@gmail.com",
+    "password": "Jelszo123@"
   },
   {
     "id": 2,
@@ -68,5 +68,12 @@
     "userName": "dfdsgdsgsdgjdsgjdsg",
     "email": "dsgsdgifdsjg@gmail.com",
     "password": "Jelszo123.@"
+  },
+  {
+    "id": 11,
+    "fullName": "Hablaty Virág 2",
+    "userName": "habibabi",
+    "email": "saffsafsasaf2@eee.com",
+    "password": "Jelszo123@"
   }
 ]

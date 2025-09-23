@@ -1,52 +1,117 @@
-<!DOCTYPE html>
-<html lang="hu">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Regisztráció</title>
-  </head>
-  <body>
-    <h5
-      class="position-absolute top-50 start-50 text-center translate-middle"
-      id="myAlert"
-    ></h5>
-    <h1 class="text-center">Regisztráció</h1>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center">
+          <h3 class="mb-0">
+            <i class="bi bi-person-plus me-2"></i>
+            Regisztráció
+          </h3>
+        </div>
+        <div class="card-body p-4">
+          <form id="registrationForm">
+            <div class="mb-3">
+              <label for="registeringFullName" class="form-label">
+                <i class="bi bi-person me-1"></i>
+                Teljes név
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="registeringFullName"
+                placeholder="Adja meg teljes nevét"
+                required
+              />
+            </div>
 
-    <div class="mb-1">
-      <label for="registeringFullName" class="form-label">Teljes neved</label>
-      <input type="text" class="form-control" id="registeringFullName" />
+            <div class="mb-3">
+              <label for="registeringUsername" class="form-label">
+                <i class="bi bi-at me-1"></i>
+                Felhasználónév
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="registeringUsername"
+                placeholder="3-20 karakter, betűk, számok, alulvonás"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="registeringEmail" class="form-label">
+                <i class="bi bi-envelope me-1"></i>
+                Email cím
+              </label>
+              <input
+                type="email"
+                class="form-control"
+                id="registeringEmail"
+                placeholder="pelda@email.com"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="registeringPassword" class="form-label">
+                <i class="bi bi-lock me-1"></i>
+                Jelszó
+              </label>
+              <input
+                type="password"
+                class="form-control"
+                id="registeringPassword"
+                placeholder="Minimum 8 karakter, nagybetű, kisbetű, szám, speciális karakter"
+                required
+              />
+            </div>
+
+            <div class="mb-4">
+              <label for="registeringPasswordAgain" class="form-label">
+                <i class="bi bi-lock-fill me-1"></i>
+                Jelszó megerősítése
+              </label>
+              <input
+                type="password"
+                class="form-control"
+                id="registeringPasswordAgain"
+                placeholder="Ismételje meg a jelszót"
+                required
+              />
+            </div>
+
+            <div class="d-grid">
+              <button
+                type="button"
+                class="btn btn-primary btn-lg"
+                onclick="handleRegistration()"
+                id="registerButton"
+              >
+                <i class="bi bi-person-check me-2"></i>
+                Regisztráció
+              </button>
+            </div>
+          </form>
+
+          <div class="text-center mt-3">
+            <p class="text-muted">
+              Már van fiókja?
+              <a
+                href="#"
+                onclick="render('Login')"
+                class="text-decoration-none"
+              >
+                Jelentkezzen be itt
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="mb-1">
-      <label for="registeringUsername" class="form-label"
-        >Felhasználó neved</label
-      >
-      <input type="text" class="form-control" id="registeringUsername" />
-    </div>
-    <div class="mb-1">
-      <label for="registeringEmail" class="form-label">Email címed</label>
-      <input type="email" class="form-control" id="registeringEmail" />
-    </div>
-    <div class="mb-3">
-      <label for="registeringPassword" class="form-label">Jelszó</label>
-      <input type="password" class="form-control" id="registeringPassword" />
-    </div>
-    <div class="mb-3">
-      <label for="registeringPasswordAgain" class="form-label"
-        >Jelszó újra</label
-      >
-      <input
-        type="password"
-        class="form-control"
-        id="registeringPasswordAgain"
-      />
-    </div>
-    <button
-      onclick="handleRegistration()"
-      id="registerButton"
-      type="button"
-      class="btn btn-primary"
-    >
-      Regisztráció
-    </button>
-  </body>
-</html>
+  </div>
+</div>
+
+<h5
+  class="position-absolute top-50 start-50 text-center translate-middle"
+  id="myAlert"
+></h5>

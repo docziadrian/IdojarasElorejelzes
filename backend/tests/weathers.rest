@@ -1,20 +1,195 @@
-### GET all weathers
+### Időjárás API tesztelése
+
+### 1. Összes időjárás adat lekérése
 GET http://localhost:3000/weathers
 Content-Type: application/json
 
-### GET weather by ID
+### 2. Egy adott időjárás adat lekérése ID alapján
 GET http://localhost:3000/weathers/1
 Content-Type: application/json
 
-### POST new weather
+### 3. Nem létező időjárás adat lekérése
+GET http://localhost:3000/weathers/999
+Content-Type: application/json
+
+### 4. Érvénytelen ID-val történő lekérés
+GET http://localhost:3000/weathers/abc
+Content-Type: application/json
+
+### 5. Új időjárás adat létrehozása - sikeres
 POST http://localhost:3000/weathers
 Content-Type: application/json
 
 {
-    "sendTitle": "Napos idő",
-    "sendDescription": "Fényes napra virradtunk.",
-    "sendImgPath": "https://cdn-icons-png.flaticon.com/512/4814/4814268.png",
-    "sendDate": "2006-08-18",
-    "sendMin": 10,
-    "sendMax": 20
+  "sendTitle": "Szép idő",
+  "sendDescription": "Napos és meleg idő várható, tökéletes idő a szabadságra.",
+  "sendImgPath": "https://cdn-icons-png.flaticon.com/512/4814/4814268.png",
+  "sendDate": "2025-01-15",
+  "sendMin": "15",
+  "sendMax": "25"
 }
+
+### 6. Új időjárás adat létrehozása - hiányzó mezők
+POST http://localhost:3000/weathers
+Content-Type: application/json
+
+{
+  "sendTitle": "Szép idő",
+  "sendDescription": "Napos és meleg idő várható"
+}
+
+### 7. Új időjárás adat létrehozása - túl rövid cím
+POST http://localhost:3000/weathers
+Content-Type: application/json
+
+{
+  "sendTitle": "Sz",
+  "sendDescription": "Napos és meleg idő várható, tökéletes idő a szabadságra.",
+  "sendImgPath": "https://cdn-icons-png.flaticon.com/512/4814/4814268.png",
+  "sendDate": "2025-01-15",
+  "sendMin": "15",
+  "sendMax": "25"
+}
+
+### 8. Új időjárás adat létrehozása - túl rövid leírás
+POST http://localhost:3000/weathers
+Content-Type: application/json
+
+{
+  "sendTitle": "Szép idő",
+  "sendDescription": "Rövid",
+  "sendImgPath": "https://cdn-icons-png.flaticon.com/512/4814/4814268.png",
+  "sendDate": "2025-01-15",
+  "sendMin": "15",
+  "sendMax": "25"
+}
+
+### 9. Új időjárás adat létrehozása - érvénytelen dátum formátum
+POST http://localhost:3000/weathers
+Content-Type: application/json
+
+{
+  "sendTitle": "Szép idő",
+  "sendDescription": "Napos és meleg idő várható, tökéletes idő a szabadságra.",
+  "sendImgPath": "https://cdn-icons-png.flaticon.com/512/4814/4814268.png",
+  "sendDate": "15-01-2025",
+  "sendMin": "15",
+  "sendMax": "25"
+}
+
+### 10. Új időjárás adat létrehozása - érvénytelen hőmérséklet értékek
+POST http://localhost:3000/weathers
+Content-Type: application/json
+
+{
+  "sendTitle": "Szép idő",
+  "sendDescription": "Napos és meleg idő várható, tökéletes idő a szabadságra.",
+  "sendImgPath": "https://cdn-icons-png.flaticon.com/512/4814/4814268.png",
+  "sendDate": "2025-01-15",
+  "sendMin": "abc",
+  "sendMax": "xyz"
+}
+
+### 11. Új időjárás adat létrehozása - minimum nagyobb mint maximum
+POST http://localhost:3000/weathers
+Content-Type: application/json
+
+{
+  "sendTitle": "Szép idő",
+  "sendDescription": "Napos és meleg idő várható, tökéletes idő a szabadságra.",
+  "sendImgPath": "https://cdn-icons-png.flaticon.com/512/4814/4814268.png",
+  "sendDate": "2025-01-15",
+  "sendMin": "30",
+  "sendMax": "20"
+}
+
+### 12. Új időjárás adat létrehozása - túl alacsony hőmérséklet
+POST http://localhost:3000/weathers
+Content-Type: application/json
+
+{
+  "sendTitle": "Hideg idő",
+  "sendDescription": "Nagyon hideg idő várható, mindenképp öltözz fel melegen.",
+  "sendImgPath": "https://cdn-icons-png.flaticon.com/512/2315/2315309.png",
+  "sendDate": "2025-01-15",
+  "sendMin": "-60",
+  "sendMax": "-40"
+}
+
+### 13. Új időjárás adat létrehozása - túl magas hőmérséklet
+POST http://localhost:3000/weathers
+Content-Type: application/json
+
+{
+  "sendTitle": "Forró idő",
+  "sendDescription": "Nagyon forró idő várható, kerüld a közvetlen napfényt.",
+  "sendImgPath": "https://cdn-icons-png.flaticon.com/512/4814/4814268.png",
+  "sendDate": "2025-01-15",
+  "sendMin": "40",
+  "sendMax": "60"
+}
+
+### 14. Új időjárás adat létrehozása - érvénytelen kép URL
+POST http://localhost:3000/weathers
+Content-Type: application/json
+
+{
+  "sendTitle": "Szép idő",
+  "sendDescription": "Napos és meleg idő várható, tökéletes idő a szabadságra.",
+  "sendImgPath": "invalid-url",
+  "sendDate": "2025-01-15",
+  "sendMin": "15",
+  "sendMax": "25"
+}
+
+### 15. Időjárás adat frissítése - sikeres
+PUT http://localhost:3000/weathers/1
+Content-Type: application/json
+
+{
+  "sendTitle": "Frissített időjárás",
+  "sendDescription": "Frissített leírás az időjárásról, amely részletesebb információkat tartalmaz.",
+  "sendMin": "10",
+  "sendMax": "20"
+}
+
+### 16. Időjárás adat frissítése - nem létező adat
+PUT http://localhost:3000/weathers/999
+Content-Type: application/json
+
+{
+  "sendTitle": "Frissített időjárás",
+  "sendDescription": "Frissített leírás az időjárásról, amely részletesebb információkat tartalmaz."
+}
+
+### 17. Időjárás adat frissítése - érvénytelen ID
+PUT http://localhost:3000/weathers/abc
+Content-Type: application/json
+
+{
+  "sendTitle": "Frissített időjárás",
+  "sendDescription": "Frissített leírás az időjárásról, amely részletesebb információkat tartalmaz."
+}
+
+### 18. Időjárás adat frissítése - hibás adatokkal
+PUT http://localhost:3000/weathers/1
+Content-Type: application/json
+
+{
+  "sendTitle": "Sz",
+  "sendDescription": "Rövid",
+  "sendMin": "30",
+  "sendMax": "20"
+}
+
+### 19. Időjárás adat törlése - sikeres
+DELETE http://localhost:3000/weathers/1
+Content-Type: application/json
+
+### 20. Időjárás adat törlése - nem létező adat
+DELETE http://localhost:3000/weathers/999
+Content-Type: application/json
+
+### 21. Időjárás adat törlése - érvénytelen ID
+DELETE http://localhost:3000/weathers/abc
+Content-Type: application/json

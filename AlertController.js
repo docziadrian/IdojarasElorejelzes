@@ -15,3 +15,5 @@ const setError = (err, type) => {
     }
   }, 3000);
 };
+
+// TODO: endpoint tesztek, a lekeresnel jovobeli datum, footerbe az adatok, legyen kulon futtathato dev es prod modban is az app,

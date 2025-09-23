@@ -1,51 +1,156 @@
-<!DOCTYPE html>
-<html lang="hu">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body onload="renderLoading()" id="landingPage">
-    <h3>Főoldal</h3>
-    <div class="d-flex gap-2">
-      <div class="card" style="width: 18rem">
-        <div class="card-body">
+<div class="container-fluid">
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="jumbotron bg-primary text-white rounded p-5 text-center">
+        <h1 class="display-4 mb-3">
+          <i class="bi bi-cloud-sun me-3"></i>
+          Időjárás Előrejelzés
+        </h1>
+        <p class="lead mb-4">
+          Üdvözöljük az időjárás előrejelzés alkalmazásban! Itt rögzítheti és
+          megtekintheti az időjárási adatokat.
+        </p>
+        <hr class="my-4 bg-white" />
+        <p class="mb-0">
+          Kezdje el használni alkalmazásunkat az időjárás adatok felvételével és
+          megtekintésével.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm border-0 hover-card">
+        <div class="card-body text-center p-4">
+          <div class="mb-3">
+            <i
+              class="bi bi-person-circle text-primary"
+              style="font-size: 3rem"
+            ></i>
+          </div>
           <h5 class="card-title">Profil megtekintése</h5>
-          <p class="card-text">Profiladatok lekérdezése, módosítása</p>
-          <button onclick="render('profilAdatok')" class="btn btn-primary">
-            Megtekintés
-          </button>
-        </div>
-      </div>
-      <div class="card" style="width: 18rem">
-        <div class="card-body">
-          <h5 class="card-title">Időjárási adatok felvétele</h5>
           <p class="card-text">
-            Jegyezd fel, és mentsd el az időjárási adatokat
+            Profiladatok lekérdezése és módosítása, jelszó megváltoztatása
           </p>
-          <button onclick="render('felvetel')" class="btn btn-primary">
-            Megtekintés
-          </button>
-        </div>
-      </div>
-      <div class="card" style="width: 18rem">
-        <div class="card-body">
-          <h5 class="card-title">Időjárási adatok megtekintése</h5>
-          <p class="card-text">A mentett időjárási adatok megtekintése</p>
-          <button onclick="render('lekeres')" class="btn btn-primary">
-            Megtekintés
-          </button>
-        </div>
-      </div>
-      <div class="card" style="width: 18rem">
-        <div class="card-body">
-          <h5 class="card-title">Kijelentkezés</h5>
-          <p class="card-text">Kijelentkezés a profilból</p>
-          <button onclick="logout()" class="btn btn-primary">
+          <button onclick="render('ProfilAdatok')" class="btn btn-primary">
+            <i class="bi bi-person-gear me-2"></i>
             Megtekintés
           </button>
         </div>
       </div>
     </div>
-  </body>
-</html>
+
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm border-0 hover-card">
+        <div class="card-body text-center p-4">
+          <div class="mb-3">
+            <i class="bi bi-cloud-upload text-info" style="font-size: 3rem"></i>
+          </div>
+          <h5 class="card-title">Időjárási adatok felvétele</h5>
+          <p class="card-text">
+            Jegyezze fel és mentse el az időjárási adatokat naponta
+          </p>
+          <button onclick="render('Felvetel')" class="btn btn-info">
+            <i class="bi bi-plus-circle me-2"></i>
+            Felvétel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm border-0 hover-card">
+        <div class="card-body text-center p-4">
+          <div class="mb-3">
+            <i
+              class="bi bi-cloud-download text-success"
+              style="font-size: 3rem"
+            ></i>
+          </div>
+          <h5 class="card-title">Időjárási adatok megtekintése</h5>
+          <p class="card-text">
+            A mentett időjárási adatok megtekintése különböző nézetekben
+          </p>
+          <button onclick="render('Lekeres')" class="btn btn-success">
+            <i class="bi bi-eye me-2"></i>
+            Megtekintés
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm border-0 hover-card">
+        <div class="card-body text-center p-4">
+          <div class="mb-3">
+            <i
+              class="bi bi-box-arrow-right text-danger"
+              style="font-size: 3rem"
+            ></i>
+          </div>
+          <h5 class="card-title">Kijelentkezés</h5>
+          <p class="card-text">Biztonságos kijelentkezés a profilból</p>
+          <button onclick="logout()" class="btn btn-danger">
+            <i class="bi bi-box-arrow-right me-2"></i>
+            Kijelentkezés
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="card border-0 bg-light">
+        <div class="card-body text-center p-4">
+          <h4 class="mb-3">
+            <i class="bi bi-info-circle me-2"></i>
+            Használati útmutató
+          </h4>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="mb-3">
+                <i class="bi bi-1-circle text-primary me-2"></i>
+                <strong>Regisztráció/Bejelentkezés</strong>
+                <p class="small text-muted mt-1">
+                  Hozzon létre egy új fiókot vagy jelentkezzen be meglévő
+                  fiókjával
+                </p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="mb-3">
+                <i class="bi bi-2-circle text-info me-2"></i>
+                <strong>Adatok felvétele</strong>
+                <p class="small text-muted mt-1">
+                  Rögzítse az időjárási adatokat dátum, típus és hőmérséklet
+                  szerint
+                </p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="mb-3">
+                <i class="bi bi-3-circle text-success me-2"></i>
+                <strong>Adatok megtekintése</strong>
+                <p class="small text-muted mt-1">
+                  Tekintse meg az adatokat kártya, grafikon vagy naptár nézetben
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hover-card {
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .hover-card:hover {
+    transform: translateY(-5px);
+  }
+</style>

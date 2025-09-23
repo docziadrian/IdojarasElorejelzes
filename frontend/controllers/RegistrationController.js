@@ -1,9 +1,13 @@
+const API_BASE_URL = "http://localhost:3000";
+
 const validateFrontendRegistration = (data) => {
   const { fullName, username, email, password, passwordAgain } = data;
+
   if (!fullName || !username || !email || !password || !passwordAgain) {
     showToastMessage("error", "Minden mező kitöltése kötelező!");
     return false;
   }
+
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
   const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
@@ -24,7 +28,7 @@ const validateFrontendRegistration = (data) => {
   if (!passwordRegex.test(password)) {
     showToastMessage(
       "error",
-      "A jelszónak legalább 8 karakter hosszúnak kell lennie, és tartalmaznia kell legalább egy nagybetűt, egy kisbetűt, egy számot és egy speciális karaktert. A pont és a vessző nem számít speciális karakternek."
+      "A jelszónak legalább 8 karakter hosszúnak kell lennie, és tartalmaznia kell legalább egy nagybetűt, egy kisbetűt, egy számot és egy speciális karaktert."
     );
     return false;
   }
@@ -37,42 +41,43 @@ const validateFrontendRegistration = (data) => {
   return true;
 };
 
-const handleRegistration = async () => {
-  const registeringFullName = document.getElementById("registeringFullName");
-  const registeringUsername = document.getElementById("registeringUsername");
-  const registeringEmail = document.getElementById("registeringEmail");
-  const registeringPassword = document.getElementById("registeringPassword");
-  const registeringPasswordAgain = document.getElementById(
-    "registeringPasswordAgain"
-  );
+window.handleRegistration = async () => {
+  const formData = {
+    fullName: document.getElementById("registeringFullName").value.trim(),
+    username: document.getElementById("registeringUsername").value.trim(),
+    email: document.getElementById("registeringEmail").value.trim(),
+    password: document.getElementById("registeringPassword").value.trim(),
+    passwordAgain: document
+      .getElementById("registeringPasswordAgain")
+      .value.trim(),
+  };
 
-  registeringFullName.value = registeringFullName.value.trim();
-  registeringUsername.value = registeringUsername.value.trim();
-  registeringEmail.value = registeringEmail.value.trim();
-  registeringPassword.value = registeringPassword.value.trim();
-  registeringPasswordAgain.value = registeringPasswordAgain.value.trim();
-
-  validateFrontendRegistration({
-    fullName: registeringFullName.value,
-    username: registeringUsername.value,
-    email: registeringEmail.value,
-    password: registeringPassword.value,
-    passwordAgain: registeringPasswordAgain.value,
-  });
+  if (!validateFrontendRegistration(formData)) {
+    return;
+  }
 
   try {
-    const { response } = await axios.post("http://localhost:3000/users", {
-      fullName: registeringFullName.value,
-      userName: registeringUsername.value,
-      email: registeringEmail.value,
-      password: registeringPassword.value,
-      passwordAgain: registeringPasswordAgain.value,
+    const response = await axios.post(`${API_BASE_URL}/users`, {
+      fullName: formData.fullName,
+      userName: formData.username,
+      email: formData.email,
+      password: formData.password,
+      passwordAgain: formData.passwordAgain,
     });
 
     showToastMessage("success", "Sikeres regisztráció!");
-    // Ne legyen átirányítás, csak töröljük a mezőket
+    clearRegistrationForm();
   } catch (error) {
-    console.log(error.response.data);
-    showToastMessage("error", error.response.data.error);
+    const errorMessage =
+      error.response?.data?.error || "Hiba történt a regisztráció során";
+    showToastMessage("error", errorMessage);
   }
+};
+
+window.clearRegistrationForm = () => {
+  document.getElementById("registeringFullName").value = "";
+  document.getElementById("registeringUsername").value = "";
+  document.getElementById("registeringEmail").value = "";
+  document.getElementById("registeringPassword").value = "";
+  document.getElementById("registeringPasswordAgain").value = "";
 };

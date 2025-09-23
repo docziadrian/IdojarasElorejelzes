@@ -1,5 +1,6 @@
 const validateFrontendLogin = (data) => {
   const { email, password } = data;
+
   if (!email || !password) {
     showToastMessage("error", "Minden mező kitöltése kötelező!");
     return false;
@@ -8,33 +9,31 @@ const validateFrontendLogin = (data) => {
   return true;
 };
 
-const handleLogin = async () => {
-  const loginEmail = document.getElementById("loginEmail");
-  const loginPassword = document.getElementById("loginPassword");
+handleLogin = async () => {
+  const formData = {
+    email: document.getElementById("loginEmail").value.trim(),
+    password: document.getElementById("loginPassword").value.trim(),
+  };
 
-  validateFrontendLogin({
-    email: loginEmail.value,
-    password: loginPassword.value,
-  });
-
-  loginEmail.value = loginEmail.value.trim();
-  loginPassword.value = loginPassword.value.trim();
+  if (!validateFrontendLogin(formData)) {
+    return;
+  }
 
   try {
-    const { response } = await axios
-      .post("http://localhost:3000/users/login", {
-        email: loginEmail.value,
-        password: loginPassword.value,
-      })
-      .then((res) => {
-        saveUser(res.data.data);
-        document.location.reload();
-      });
+    const response = await axios.post(`${API_BASE_URL}/users/login`, formData);
 
+    saveUser(response.data.user);
     showToastMessage("success", "Sikeres bejelentkezés!");
-    saveUser(response.data);
-    // Ne legyen átirányítás, csak töröljük a mezőket
+    clearLoginForm();
+    window.location.reload();
   } catch (error) {
-    showToastMessage("error", error.response.data.error);
+    const errorMessage =
+      error.response?.data?.error || "Hiba történt a bejelentkezés során";
+    showToastMessage("error", errorMessage);
   }
+};
+
+clearLoginForm = () => {
+  document.getElementById("loginEmail").value = "";
+  document.getElementById("loginPassword").value = "";
 };

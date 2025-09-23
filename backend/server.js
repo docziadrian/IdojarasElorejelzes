@@ -2,29 +2,63 @@ const express = require("express");
 const usersRouter = require("./modules/users");
 const weathersRouter = require("./modules/weathers");
 const store = require("./lib/store");
+const cors = require("cors");
+const config = require("./config");
 
-var cors = require("cors");
 const app = express();
+const PORT = config.port;
 
-// Middleware -k
+// Production middleware (helmet, compression)
+if (config.enableHelmet) {
+  const helmet = require("helmet");
+  app.use(helmet());
+}
 
-app.use(cors());
+if (config.enableCompression) {
+  const compression = require("compression");
+  app.use(compression());
+}
+
+// CORS konfig
+const corsOptions = {
+  origin: config.corsOrigin,
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Store inicializálása
 store.initStore();
 
-// Egyszerű GET kérés a gyökér útvonalra.
 app.get("/", (req, res) => {
-  res.send("Szerver fut és elérhető.");
+  res.json({
+    message: "Időjárás Előrejelzés API szerver fut és elérhető",
+    version: "1.0.0",
+    environment: config.environment,
+    endpoints: {
+      users: "/users",
+      weathers: "/weathers",
+    },
+  });
 });
 
-// Felhasználói útvonalak kezelése
 app.use("/users", usersRouter);
 app.use("/weathers", weathersRouter);
 
-// Console -ra íratás, hogy sikeresen elindult a szerver az x porton.
-app.listen(3000, () => {
-  console.log("Szerver sikeresen elindult a 3000 -s porton.");
+app.use((req, res) => {
+  res.status(404).json({ error: "Az oldal nem található" });
+});
+
+app.use((error, req, res, next) => {
+  if (config.logLevel === "debug") {
+    console.error("Szerver hiba:", error);
+  }
+  res.status(500).json({ error: "Belső szerver hiba" });
+});
+
+app.listen(PORT, () => {
+  console.log(
+    `Szerver sikeresen elindult a ${PORT} porton (${config.environment} módban).`
+  );
 });
