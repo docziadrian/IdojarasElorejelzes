@@ -24,6 +24,14 @@ document.addEventListener("DOMContentLoaded", () => {
      <li onclick="render('felvetel')" class="nav-item">
       <a class="nav-link" aria-current="page">Felvétel</a>
     </li>
+    </li>
+     <li onclick="render('lekeres')" class="nav-item">
+      <a class="nav-link" aria-current="page">Lekérés</a>
+    </li>
+    </li>
+     <li onclick="render('profilAdatok')" class="nav-item">
+      <a class="nav-link" aria-current="page">Profil adatok</a>
+    </li>
     <li onclick="logout()" class="nav-item">
       <a class="nav-link" aria-current="page">Kijelentkezés</a>
     </li>
@@ -43,18 +51,16 @@ let render = async (view) => {
 
   switch (view) {
     case "landing":
-      await renderLoading();
       break;
     case "felvetel":
+      handleDate();
+      handleChange();
       break;
-    case "main":
-      setDate();
-      await getSteps();
-      renderSteps();
+    case "lekeres":
+      await getWeathers();
       break;
-    case "statistics":
-      await getChartData();
-      initChart();
+    case "profilAdatok":
+      await getProfileHandler();
       break;
   }
 };

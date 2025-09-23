@@ -5,5 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body id="landingPage"></body>
+  <body onload="renderLoading()" id="landingPage">
+    <h3>Főoldal</h3>
+    <div class="d-flex gap-2">
+      <div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">Profil megtekintése</h5>
+          <p class="card-text">Profiladatok lekérdezése, módosítása</p>
+          <button onclick="render('profilAdatok')" class="btn btn-primary">
+            Megtekintés
+          </button>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">Időjárási adatok felvétele</h5>
+          <p class="card-text">
+            Jegyezd fel, és mentsd el az időjárási adatokat
+          </p>
+          <button onclick="render('felvetel')" class="btn btn-primary">
+            Megtekintés
+          </button>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">Időjárási adatok megtekintése</h5>
+          <p class="card-text">A mentett időjárási adatok megtekintése</p>
+          <button onclick="render('lekeres')" class="btn btn-primary">
+            Megtekintés
+          </button>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">Kijelentkezés</h5>
+          <p class="card-text">Kijelentkezés a profilból</p>
+          <button onclick="logout()" class="btn btn-primary">
+            Megtekintés
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

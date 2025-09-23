@@ -1,0 +1,20 @@
+### GET all weathers
+GET http://localhost:3000/weathers
+Content-Type: application/json
+
+### GET weather by ID
+GET http://localhost:3000/weathers/1
+Content-Type: application/json
+
+### POST new weather
+POST http://localhost:3000/weathers
+Content-Type: application/json
+
+{
+    "sendTitle": "Napos idő",
+    "sendDescription": "Fényes napra virradtunk.",
+    "sendImgPath": "https://cdn-icons-png.flaticon.com/512/4814/4814268.png",
+    "sendDate": "2006-08-18",
+    "sendMin": 10,
+    "sendMax": 20
+}

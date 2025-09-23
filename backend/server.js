@@ -1,5 +1,6 @@
 const express = require("express");
 const usersRouter = require("./modules/users");
+const weathersRouter = require("./modules/weathers");
 const store = require("./lib/store");
 
 var cors = require("cors");
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 
 // Felhasználói útvonalak kezelése
 app.use("/users", usersRouter);
+app.use("/weathers", weathersRouter);
 
 // Console -ra íratás, hogy sikeresen elindult a szerver az x porton.
 app.listen(3000, () => {

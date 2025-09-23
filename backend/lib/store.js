@@ -2,12 +2,14 @@ const fs = require("fs");
 const path = require("path");
 
 const USERS_FILE = path.join(__dirname, "..", "database", "users.json");
+const WEATHER_FILE = path.join(__dirname, "..", "database", "weathers.json");
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
 const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
 const users = readUsers();
+const weathers = readWeathers();
 
 function alreadyRegistered(email) {
   return users.some((user) => user.email === email);
@@ -105,6 +107,7 @@ function validatePasswordChange(newUser) {
 
 function initStore() {
   readUsers();
+  readWeathers();
 }
 
 function readUsers() {
@@ -115,8 +118,20 @@ function readUsers() {
   return JSON.parse(data);
 }
 
+function readWeathers() {
+  if (!fs.existsSync(WEATHER_FILE)) {
+    return [];
+  }
+  const data = fs.readFileSync(WEATHER_FILE);
+  return JSON.parse(data);
+}
+
 function writeUsers(users) {
   fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+}
+
+function writeWeathers(weathers) {
+  fs.writeFileSync(WEATHER_FILE, JSON.stringify(weathers, null, 2));
 }
 
 function getNextID(table) {
@@ -136,7 +151,9 @@ function getNextID(table) {
 module.exports = {
   initStore,
   readUsers,
+  readWeathers,
   writeUsers,
+  writeWeathers,
   getNextID,
   validateRegistration,
   validateEmail,
@@ -148,4 +165,6 @@ module.exports = {
   getAllUsers: () => users,
   getUserById: (id) => users.find((user) => user.id === id),
   getUserByEmail: (email) => users.find((user) => user.email === email),
+  getAllWeathers: () => weathers,
+  getWeatherById: (id) => weathers.find((weather) => weather.id === id),
 };

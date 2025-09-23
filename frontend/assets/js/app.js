@@ -1,11 +1,12 @@
 const AppTitle = "Időjárás applikáció";
-const Author = "13. A";
+const Author = "Dóczi Adrián Márk 13. A";
 const Company = "Bajai SZC Türr Istvàn Technikum";
 const ServerUrl = "http://localhost:3000";
 
 let title = document.getElementById("appTitle");
-let company = document.getElementById("company");
-let author = document.getElementById("author");
+let company = document.getElementById("Fcompany");
+let author = document.getElementById("Fauthor");
+
 let lightmodeBtn = document.getElementById("lightmodeBtn");
 let darkmodeBtn = document.getElementById("darkmodeBtn");
 
@@ -53,5 +54,8 @@ setThemeBtn = (theme) => {
     darkmodeBtn.classList.add("hide");
   }
 };
+
+company.textContent = Company;
+author.textContent = Author;
 
 loadTheme();

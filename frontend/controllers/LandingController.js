@@ -1,7 +1,9 @@
 const renderLoading = async () => {
-  const landingPage = document.querySelector("#landingPage");
+  const landingPage = document.querySelector("#appMain");
   if (!landingPage) {
-    return;
+    setTimeout(async () => {
+      await renderLoading();
+    }, 1000);
   }
 
   const loggedIn = await loadUser();

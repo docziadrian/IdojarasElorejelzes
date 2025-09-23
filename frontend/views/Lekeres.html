@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Időjárások lekérése</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="filter">
+        <div class="d-flex flex-column w-26 align-items-center gap-2">
+          <h6 class="font-monospace text-center">Dátum szerinti szűrés</h6>
+          <input
+            type="date"
+            class="form-control form-control-lg border-2 rounded-3 w-25"
+            id="selectedDate"
+          />
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="d-flex gap-3">
+          <button
+            onclick="handleViewChange('data')"
+            type="button"
+            class="btn btn-primary"
+          >
+            Kártya nézet
+          </button>
+          <button
+            onclick="handleViewChange('linear')"
+            type="button"
+            class="btn btn-primary"
+          >
+            Lineáris nézet
+          </button>
+          <button
+            onclick="handleViewChange('calendar')"
+            type="button"
+            class="btn btn-primary"
+          >
+            Naptár nézet
+          </button>
+        </div>
+      </div>
+
+      <div id="main">
+        <div
+          id="dataSection"
+          class="p-5 row mx-auto w-full mx-auto gap-4"
+        ></div>
+
+        <div class="visually-hidden p-5" id="linearSection">
+          <div
+            id="chartContainer"
+            style="height: 370px; width: 100%; position: relative"
+          ></div>
+        </div>
+
+        <div class="visually-hidden p-5" id="calendarSection">
+          <div id="calendar"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
