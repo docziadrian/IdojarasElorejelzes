@@ -1,7 +1,7 @@
 const config = {
   development: {
     port: process.env.PORT || 3000,
-    corsOrigin: process.env.CORS_ORIGIN || "http://127.0.0.1:5500",
+    corsOrigin: process.env.CORS_ORIGIN || "http://127.0.0.1:5500/",
     logLevel: process.env.LOG_LEVEL || "debug",
     enableHelmet: false,
     enableCompression: false,

@@ -15,14 +15,19 @@
                 <i class="bi bi-calendar-date me-1"></i>
                 Dátum szerinti szűrés
               </label>
-              <input type="date" class="form-control" id="selectedDate" />
+              <input
+                min=""
+                type="date"
+                class="form-control"
+                id="selectedDate"
+              />
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 text-md-end mt-3 mt-md-0">
               <div class="btn-group" role="group">
                 <button
                   onclick="handleViewChange('data')"
                   type="button"
-                  class="btn btn-outline-primary active"
+                  class="btn btn-outline-primary active mx-2"
                   id="dataViewBtn"
                 >
                   <i class="bi bi-grid me-1"></i>
@@ -40,7 +45,7 @@
                 <button
                   onclick="handleViewChange('calendar')"
                   type="button"
-                  class="btn btn-outline-primary"
+                  class="btn btn-outline-primary mx-2"
                   id="calendarViewBtn"
                 >
                   <i class="bi bi-calendar3 me-1"></i>

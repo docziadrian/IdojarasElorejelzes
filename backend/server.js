@@ -19,12 +19,7 @@ if (config.enableCompression) {
   app.use(compression());
 }
 
-// CORS konfig
-const corsOptions = {
-  origin: config.corsOrigin,
-  credentials: true,
-};
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

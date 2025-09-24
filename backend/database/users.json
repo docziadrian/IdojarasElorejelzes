@@ -75,5 +75,12 @@
     "userName": "habibabi",
     "email": "saffsafsasaf2@eee.com",
     "password": "Jelszo123@"
+  },
+  {
+    "id": 12,
+    "fullName": "Sió Fok",
+    "userName": "siofoka",
+    "email": "siofok@siofok.siofok",
+    "password": "Jelszo123@2"
   }
 ]

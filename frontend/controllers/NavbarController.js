@@ -7,32 +7,32 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log(loggedIn);
 
   const notLoggedInMenu = `
-    <li onclick="render('Landing')" class="nav-item">
+    <li role="button" onclick="render('Landing')" class="nav-item">
       <a class="nav-link" aria-current="page">Főoldal</a>
     </li>
-    <li onclick="render('Registration')" class="nav-item">
+    <li role="button" onclick="render('Registration')" class="nav-item">
       <a class="nav-link">Regisztráció</a>
     </li>
-    <li onclick="render('Login')" class="nav-item">
+    <li role="button" onclick="render('Login')" class="nav-item">
       <a class="nav-link">Bejelentkezés</a>
     </li>`;
 
   const loggedInMenu = `
-    <li onclick="render('Landing')" class="nav-item">
+    <li role="button" onclick="render('Landing')" class="nav-item">
       <a class="nav-link" aria-current="page">Főoldal</a>
     </li>
-     <li onclick="render('Felvetel')" class="nav-item">
+     <li role="button" onclick="render('Felvetel')" class="nav-item">
       <a class="nav-link" aria-current="page">Felvétel</a>
     </li>
     </li>
-     <li onclick="render('Lekeres')" class="nav-item">
+     <li role="button" onclick="render('Lekeres')" class="nav-item">
       <a class="nav-link" aria-current="page">Lekérés</a>
     </li>
     </li>
-     <li onclick="render('ProfilAdatok')" class="nav-item">
+     <li role="button" onclick="render('ProfilAdatok')" class="nav-item">
       <a class="nav-link" aria-current="page">Profil adatok</a>
     </li>
-    <li onclick="logout()" class="nav-item">
+    <li role="button" onclick="logout()" class="nav-item">
       <a class="nav-link" aria-current="page">Kijelentkezés</a>
     </li>
     `;

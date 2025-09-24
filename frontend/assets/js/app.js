@@ -9,6 +9,8 @@ let author = document.getElementById("Fauthor");
 
 let lightmodeBtn = document.getElementById("lightmodeBtn");
 let darkmodeBtn = document.getElementById("darkmodeBtn");
+let date = document.getElementById("Fdate");
+date.textContent = new Date().getFullYear() + " © Minden jog fenntartva";
 
 let main = document.querySelector("main");
 

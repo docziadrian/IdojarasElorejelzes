@@ -47,6 +47,10 @@ window.addDataToSection = (weather) => {
 
 const getWeathers = async () => {
   try {
+    const dateField = document.getElementById("selectedDate");
+    dateField.value = "";
+    dateField.min = new Date().toISOString().split("T")[0];
+
     const response = await axios.get(`${API_BASE_URL}/weathers`);
     weatherData = response.data;
 
@@ -57,7 +61,7 @@ const getWeathers = async () => {
       addDataToSection(weather);
     });
   } catch (error) {
-    showToastMessage("error", "Hiba történt az időjárás adatok lekérésekor");
+    //showToastMessage("error", "Hiba történt az időjárás adatok lekérésekor");
   }
 };
 
@@ -98,6 +102,7 @@ window.saveEditWeather = async () => {
       `${API_BASE_URL}/weathers/${editingWeatherId}`,
       payload
     );
+    console.log(res);
     showToastMessage("success", "Időjárás adat frissítve");
     if (res.data?.warning) {
       showToastMessage("warning", res.data.warning);
